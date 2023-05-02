@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
   log << "Returned: " << ret << endl;
   log << "Execution cost: " << exec_cost << endl;
   log << "Max heap usage (bytes): " << max_heap_size << endl;
-  log << "Total cost: " << exec_cost + max_heap_size * 16.0 << endl;
+  log << "Total cost: " << exec_cost + max_heap_size * 1024.0 << endl;
   log.close();
 
   ofstream cost_log("swpp-interpreter-cost.log");

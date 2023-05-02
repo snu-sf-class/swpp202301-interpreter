@@ -143,6 +143,10 @@ uint64_t State::exec_function(CostStack* parent, Function* function) {
 
         RegFile old = regfile;
 
+        if (callee_is_oracle) {
+          switch_to_oracle();
+        }
+
         regfile.set_nargs(nargs);
         double wait_cost = stmt->setup_args(cost->get_cost(), old, regfile);
         double inst_cost = (callee_is_oracle ? (CurrentMachine->machine_cost->CALL_ORACLE) : (CurrentMachine->machine_cost->CALL));
@@ -154,9 +158,6 @@ uint64_t State::exec_function(CostStack* parent, Function* function) {
         regfile.write_reg(curr->get_lhs(), ret);
 
         curr = stmt->get_next();
-        if (callee_is_oracle) {
-          switch_to_oracle();
-        }
         break;
       }
       default: {
